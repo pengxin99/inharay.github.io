@@ -1,7 +1,7 @@
 ---
 title: Dual Chunk Attention
 description: Introduction to Dual Chunk Attention
-authors: [Inharay]
+authors: [Inharay, imwhyyyy]
 date: 2026-01-21 12:00:00 +0800
 categories: [AI, Attention Mechanism]
 tags: [dual chunk attention, LLM]
