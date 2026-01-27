@@ -1,8 +1,27 @@
+---
+title: KVCache reuse 01
+description: Introduction to no-prefix KVCache reuse
+authors: [pengxin]
+date: 2026-01-27 12:00:00 +0800
+categories: [AI, KVCache Mechanism]
+tags: [cacheblend, cachecraft, LLM]
+pin: false
+math: true
+mermaid: true
+typora-root-url: ../../inharay.github.io
+# image:
+#   path: /assets/img/path/to/image.png
+#   lqip: data:image/webp;base64,
+image:
+  path: /assets/img/dual_chunk_attention/imageTitle.png
+  lqip: data:image/webp;base64,UklGRpoAAABXRUJQVlA4WAoAAAAQAAAADwAABwAAQUxQSDIAAAARL0AmbZurmr57yyIiqE8oiG0bejIYEQTgqiDA9vqnsUSI6H+oAERp2HZ65qP/VIAWAFZQOCBCAAAA8AEAnQEqEAAIAAVAfCWkAALp8sF8rgRgAP7o9FDvMCkMde9PK7euH5M1m6VWoDXf2FkP3BqV0ZYbO6NA/VFIAAAA
+---
+
 # KV Cache 非前缀复用技术对比分析报告
 
 ## 简要总结
 
-本报告深入分析了5篇关于KV Cache非前缀复用的前沿研究论文，包括**CacheBlend**（芝加哥大学，EuroSys'25）、**Cache-Craft**（Adobe Research，2025）、**EPIC**（北京大学/华为云，ICML'25）、**REFRAG**（Meta，2025）和**KVLink**（UC Santa Barbara/Accenture，NeurIPS'25）。
+本报告深入分析了5篇关于KV Cache非前缀复用的前沿研究论文，包括**CacheBlend**（芝加哥大学，EuroSys'25）、**Cache-Craft**（Adobe Research，2025）、**EPIC**（北京大学/华为云，ICML'25）、**REFRAG**（Meta，2025）和**KVLink**（UC Santa Barbara/Accenture，NeurIPS'25）。 今天首先介绍 **CacheBlend** 与 **Cache-Craft**。
 
 这些研究共同解决了RAG系统中**非前缀位置的文本块KV Cache复用**这一核心挑战——传统前缀缓存只能复用输入开头的文本块，而RAG场景下多个检索文档往往以任意顺序拼接在查询之后。
 而这种任意顺序的拼接造成 **KVCache** 不满足前缀复用（**prefix-cache**）的要求，市面上大部分场景下是进行 **KVCache** 重新计算，即重新做 Prefill，这会消耗大量计算资源，增加系统的延迟。
